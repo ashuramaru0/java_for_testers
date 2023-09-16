@@ -10,8 +10,17 @@ public class SquareTests {
         Assertions.assertEquals(25., Square.area(5.));
     }
 
+//    @Test
+//    void canCalculatePerimeter(){
+//        Assertions.assertEquals(20, Square.perimeter(5.));
+//    }
+    @Test
+    void canCalculateTriangleArea(){
+        Assertions.assertEquals(6, Triangle.triangleArea(3.,4.,5.));
+    }
+
     @Test
     void canCalculatePerimeter(){
-        Assertions.assertEquals(20, Square.perimeter(5.));
+        Assertions.assertEquals(12, Triangle.trianglePerimeter(3,4,5));
     }
 }
