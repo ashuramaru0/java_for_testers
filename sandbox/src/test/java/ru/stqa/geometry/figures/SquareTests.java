@@ -17,11 +17,11 @@ public class SquareTests {
     }
     @Test
     void canCalculateTriangleArea(){
-        Assertions.assertEquals(6, Triangle.triangleArea(3.,4.,5.));
+        Assertions.assertEquals(6, new Triangle(3.,4.,5.).triangleArea());
     }
 
     @Test
     void canCalculatePerimeter1(){
-        Assertions.assertEquals(12, Triangle.trianglePerimeter(3,4,5));
+        Assertions.assertEquals(12, new Triangle(3,4,5).trianglePerimeter());
     }
 }
