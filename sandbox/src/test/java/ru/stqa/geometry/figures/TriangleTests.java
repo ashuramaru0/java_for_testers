@@ -8,18 +8,17 @@ public class TriangleTests {
     @Test
     void cannotCreateTriangleWithNegativeSide() {
         try {
-            new Triangle(1, 3, 5);
+            new Triangle(-1, 3, 5);
             Assertions.fail();
         } catch (IllegalArgumentException exception) {
         }
     }
     @Test
-    void cannotCreateRectangleWithNegativeSide(){
-        try{
-            new Rectangle(-5., 3);
+    void cannotCreateTriangleWithTwoSidesLessThanThird() {
+        try {
+            new Triangle(4, 5, 10);
             Assertions.fail();
-        } catch (IllegalArgumentException exception){
-
+        } catch (IllegalArgumentException exception) {
         }
     }
     @Test
