@@ -31,7 +31,7 @@ public class TriangleTests {
     void testEquality2(){
         var t1 = new Triangle(5.0,4.0,4.0);
         var t2 = new Triangle(5.0,3.0, 3.0);
-        Assertions.assertEquals(t1,t2);
+        Assertions.assertNotEquals(t1,t2);
     }
     @Test
     void testNonEquality(){
