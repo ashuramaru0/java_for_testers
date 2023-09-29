@@ -7,7 +7,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class GroupCreateRemovalTests {
+public class GroupCreateTest {
   private WebDriver driver;
   @BeforeEach
   public void setUp() {
@@ -41,27 +41,7 @@ public class GroupCreateRemovalTests {
     driver.findElement(By.name("submit")).click();
     driver.findElement(By.linkText("group page")).click();
   }
-  @Test
-  public void GroupRemovalTest() {
-    if (!isElementPresent(By.name("new"))) {
-      driver.findElement(By.linkText("groups")).click();
-    }
-    if (!isElementPresent(By.name("selected[]"))){
-      driver.findElement(By.linkText("groups")).click();
-      driver.findElement(By.name("new")).click();
-      driver.findElement(By.name("group_name")).click();
-      driver.findElement(By.name("group_name")).sendKeys("group name");
-      driver.findElement(By.name("group_header")).click();
-      driver.findElement(By.name("group_header")).sendKeys("group header");
-      driver.findElement(By.name("group_footer")).click();
-      driver.findElement(By.name("group_footer")).sendKeys("group footer");
-      driver.findElement(By.name("submit")).click();
-      driver.findElement(By.linkText("group page")).click();
-    }
-    driver.findElement(By.name("selected[]")).click();
-    driver.findElement(By.name("delete")).click();
-    driver.findElement(By.linkText("group page")).click();
-  }
+
   private boolean isElementPresent(By locator) {
     try {
       driver.findElement(locator);
