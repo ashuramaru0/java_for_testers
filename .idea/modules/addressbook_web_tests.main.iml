@@ -3,10 +3,7 @@
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../../addressbook_web_tests/build/classes/java/main" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../addressbook_web_tests/src/main">
-      <sourceFolder url="file://$MODULE_DIR$/../../addressbook_web_tests/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../addressbook_web_tests/src/main/resources" type="java-resource" />
-    </content>
+    <content url="file://$MODULE_DIR$/../../addressbook_web_tests/src/main" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
