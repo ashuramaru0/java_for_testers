@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/addressbook-web-tests.iml" filepath="$PROJECT_DIR$/addressbook-web-tests.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressbook-web-tests.main.iml" filepath="$PROJECT_DIR$/.idea/modules/addressbook-web-tests.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressbook-web-tests.test.iml" filepath="$PROJECT_DIR$/.idea/modules/addressbook-web-tests.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressbook_web_tests.iml" filepath="$PROJECT_DIR$/.idea/modules/addressbook_web_tests.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressbook_web_tests.main.iml" filepath="$PROJECT_DIR$/.idea/modules/addressbook_web_tests.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressbook_web_tests.test.iml" filepath="$PROJECT_DIR$/.idea/modules/addressbook_web_tests.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/sandbox.iml" filepath="$PROJECT_DIR$/sandbox.iml" />
