@@ -25,7 +25,7 @@ public class ApplicationManager {
                 throw new IllegalArgumentException(String.format("Unkwon browser %s", browser));
             }
           Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
-          driver.get("http://localhost/addressbook/");
+          driver.get("http://localhost:8080/addressbook/");
           driver.manage().window().setSize(new Dimension(1936, 1048));
           session().login("admin", "secret");
         }
