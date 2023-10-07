@@ -2,9 +2,6 @@ package manager;
 
 import model.ContactData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-
-import java.time.Duration;
 
 public class ContactHelper extends HelperBase{
     public ContactHelper(ApplicationManager manager){
@@ -14,7 +11,7 @@ public class ContactHelper extends HelperBase{
     public void createContact(ContactData contact) {
         openContactPage();
         initContactCreation();
-        fillConcatForm(contact);
+        fillContactForm(contact);
         submitContactCreation();
         returnToContactPage();
     }
@@ -38,7 +35,7 @@ public class ContactHelper extends HelperBase{
         click(By.name("selected[]"));
     }
 
-    private void fillConcatForm(ContactData contact) {
+    private void fillContactForm(ContactData contact) {
 
         type(By.name("firstname"), contact.firstName());
         type(By.name("lastname"), contact.lastName());
@@ -67,6 +64,10 @@ public class ContactHelper extends HelperBase{
     public boolean isContactPresent() {
         openContactPage();
         return manager.isElementPresent(By.name("selected[]"));
+    }
+    public int getCount() {
+        openContactPage();
+        return  manager.driver.findElements(By.name("selected[]")).size();
     }
 
 }
