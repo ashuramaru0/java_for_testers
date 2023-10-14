@@ -3,6 +3,9 @@ package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase{
     public ContactHelper(ApplicationManager manager){
         super(manager);
@@ -13,12 +16,11 @@ public class ContactHelper extends HelperBase{
         initContactCreation();
         fillContactForm(contact);
         submitContactCreation();
-        returnToContactPage();
     }
 
-    public void removeContact(){
+    public void removeContact(ContactData contact){
         openContactPage();
-        selectContact();
+        selectContact(contact);
         removeSelectedContact();
         acceptAlert();
     }
@@ -31,8 +33,8 @@ public class ContactHelper extends HelperBase{
         click(By.xpath("//div[2]/input"));
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']",contact.id())));
     }
 
     private void fillContactForm(ContactData contact) {
@@ -48,10 +50,6 @@ public class ContactHelper extends HelperBase{
         click(By.name("submit"));
     }
 
-    private void returnToContactPage() {
-        click(By.linkText("home page"));
-    }
-
     private void initContactCreation() {
         click(By.linkText("add new"));
     }
@@ -61,13 +59,32 @@ public class ContactHelper extends HelperBase{
             click(By.linkText("home"));
         }
     }
-    public boolean isContactPresent() {
-        openContactPage();
-        return manager.isElementPresent(By.name("selected[]"));
-    }
     public int getCount() {
         openContactPage();
         return  manager.driver.findElements(By.name("selected[]")).size();
     }
 
+    public void removeAllContacts() {
+        selectAllContacts();
+        removeSelectedContact();
+    }
+    private void selectAllContacts() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
+
+    public List<ContactData> getContactList() {
+        openContactPage();
+        var contact = new ArrayList<ContactData>();
+        var tds = manager.driver.findElements(By.xpath("//table[@id='maintable']/tbody/tr[3]/td/input"));
+        for (var td : tds){
+            var name = td.getText();
+            var checkbox = td.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contact.add(new ContactData().withId(id).withFirstName(name));
+        }
+        return contact;
+    }
 }
