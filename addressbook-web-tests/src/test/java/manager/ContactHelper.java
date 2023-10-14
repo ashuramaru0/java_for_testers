@@ -17,6 +17,7 @@ public class ContactHelper extends HelperBase{
         initContactCreation();
         fillContactForm(contact);
         submitContactCreation();
+        returnToContactsPage();
     }
 
     public void removeContact(ContactData contact){
@@ -24,6 +25,7 @@ public class ContactHelper extends HelperBase{
         selectContact(contact);
         removeSelectedContact();
         acceptAlert();
+        returnToContactsPage();
     }
 
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
@@ -32,6 +34,7 @@ public class ContactHelper extends HelperBase{
         InitContactModification();
         fillContactForm(modifiedContact);
         submitContactModification();
+        returnToContactsPage();
     }
 
     private void submitContactModification() {
@@ -43,6 +46,9 @@ public class ContactHelper extends HelperBase{
     }
 
 
+    private void returnToContactsPage() {
+        click(By.linkText("home"));
+    }
     private void acceptAlert() {
         manager.driver.switchTo().alert().accept();
     }
@@ -62,6 +68,7 @@ public class ContactHelper extends HelperBase{
         type(By.name("address"), contact.address());
         type(By.name("email"), contact.email());
         type(By.name("mobile"), contact.phone());
+        attach(By.name("photo"), contact.photo());
     }
 
     private void submitContactCreation() {

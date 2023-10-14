@@ -1,7 +1,6 @@
 package tests;
 
 import model.ContactData;
-import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +19,7 @@ public class ContactCreationTest extends TestBase{
                 for (var address : List.of("","address")){
                     for (var email : List.of("","email")){
                         for (var mobile : List.of("", "mobile")){
-                            result.add(new ContactData(" ", fistName, lastName, address, email,mobile));
+                            result.add(new ContactData(" ", fistName, lastName, address, email,mobile, " "));
                         }
                     }
 
@@ -28,7 +27,7 @@ public class ContactCreationTest extends TestBase{
             }
         }
         for (int i = 0; i < 5; i++){
-            result.add(new ContactData(" ", randomString(i * 10), randomString(i * 10),randomString(i * 10),randomString(i * 10),randomString(i * 10)));
+            result.add(new ContactData(" ", randomString(i * 10), randomString(i * 10),randomString(i * 10),randomString(i * 10),randomString(i * 10), " "));
         }
         return result;
     }
@@ -50,6 +49,12 @@ public class ContactCreationTest extends TestBase{
     }
     @Test
     public void canCreateContact() {
-        app.contact().createContact(new ContactData(" ", "first name", "last name", "address", "email", "phone"));
+        app.contact().createContact(new ContactData(" ",
+                "first name",
+                "last name",
+                "address",
+                "email",
+                "phone",
+                "src\\test\\resources\\images\\avatar.jpg"));
     }
 }
