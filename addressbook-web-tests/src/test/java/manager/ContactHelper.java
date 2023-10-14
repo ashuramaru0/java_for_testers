@@ -1,6 +1,7 @@
 package manager;
 
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
@@ -24,6 +25,23 @@ public class ContactHelper extends HelperBase{
         removeSelectedContact();
         acceptAlert();
     }
+
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
+        openContactPage();
+        selectContact(contact);
+        InitContactModification();
+        fillContactForm(modifiedContact);
+        submitContactModification();
+    }
+
+    private void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    private void InitContactModification() {
+        click(By.name("edit"));
+    }
+
 
     private void acceptAlert() {
         manager.driver.switchTo().alert().accept();

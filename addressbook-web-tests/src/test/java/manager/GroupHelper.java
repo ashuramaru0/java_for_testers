@@ -1,5 +1,6 @@
 package manager;
 
+import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
 
@@ -27,11 +28,11 @@ public class GroupHelper extends HelperBase{
         returnToGroupsPage();
     }
 
-    public void modifyGroup(GroupData group, GroupData modifedGroup) {
+    public void modifyGroup(GroupData group, GroupData modifiedGroup) {
         openGroupsPage();
         selectGroup(group);
         InitGroupModification();
-        fillGroupForm(modifedGroup);
+        fillGroupForm(modifiedGroup);
         submitGroupModification();
         returnToGroupsPage();
     }
@@ -107,4 +108,5 @@ public class GroupHelper extends HelperBase{
         }
         return groups;
     }
+
 }
