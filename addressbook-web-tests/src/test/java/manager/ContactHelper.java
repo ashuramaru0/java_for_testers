@@ -31,7 +31,7 @@ public class ContactHelper extends HelperBase{
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openContactPage();
         selectContact(contact);
-        InitContactModification();
+        InitContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
         returnToContactsPage();
@@ -41,8 +41,8 @@ public class ContactHelper extends HelperBase{
         click(By.name("update"));
     }
 
-    private void InitContactModification() {
-        click(By.name("edit"));
+    private void InitContactModification(ContactData contact) {
+        click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));;
     }
 
 
@@ -54,11 +54,11 @@ public class ContactHelper extends HelperBase{
     }
 
     private void removeSelectedContact() {
-        click(By.xpath("//div[2]/input"));
+        click(By.xpath("//input[@value=\'Delete\']"));
     }
 
     private void selectContact(ContactData contact) {
-        click(By.cssSelector(String.format("input[value='%s']",contact.id())));
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     private void fillContactForm(ContactData contact) {
@@ -86,7 +86,7 @@ public class ContactHelper extends HelperBase{
     }
     public int getCount() {
         openContactPage();
-        return  manager.driver.findElements(By.name("selected[]")).size();
+        return  manager.driver.findElements(By.xpath("selected[]")).size();
     }
 
     public void removeAllContacts() {
@@ -94,8 +94,8 @@ public class ContactHelper extends HelperBase{
         removeSelectedContact();
     }
     private void selectAllContacts() {
-        var checkboxes = manager.driver.findElements(By.name("selected[]"));
-        for (var checkbox : checkboxes) {
+        var checkboxes =  manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox: checkboxes) {
             checkbox.click();
         }
     }
@@ -103,12 +103,13 @@ public class ContactHelper extends HelperBase{
     public List<ContactData> getContactList() {
         openContactPage();
         var contact = new ArrayList<ContactData>();
-        var tds = manager.driver.findElements(By.xpath("//table[@id='maintable']/tbody/tr[3]/td/input"));
-        for (var td : tds){
-            var name = td.getText();
-            var checkbox = td.findElement(By.name("selected[]"));
+        var tableRows = manager.driver.findElements(By.xpath("//tr[@name=\'entry\']"));
+        for (var tableRow : tableRows) {
+            var lastname = tableRow.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            var firstname = tableRow.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            var checkbox = tableRow.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
-            contact.add(new ContactData().withId(id).withFirstName(name));
+            contact.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname));
         }
         return contact;
     }
