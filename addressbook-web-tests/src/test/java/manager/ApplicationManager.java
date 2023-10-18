@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import java.util.Properties;
 
 public class ApplicationManager {
     protected static WebDriver driver;
@@ -15,7 +16,10 @@ public class ApplicationManager {
 
     private ContactHelper contact;
 
-    public void init(String browser) {
+    private Properties properties;
+
+    public void init(String browser, Properties properties) {
+        this.properties = properties;
         if (driver == null){
             if("chrome".equals(browser)){
                 driver = new ChromeDriver();
@@ -25,9 +29,9 @@ public class ApplicationManager {
                 throw new IllegalArgumentException(String.format("Unkwon browser %s", browser));
             }
           Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
-          driver.get("http://localhost/addressbook/");
+          driver.get(properties.getProperty("web.baseUrl"));
           driver.manage().window().setSize(new Dimension(1936, 1048));
-          session().login("admin", "secret");
+            session().login(properties.getProperty("web.username"), properties.getProperty("web.password"));
         }
     }
 

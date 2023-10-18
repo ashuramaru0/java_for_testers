@@ -1,5 +1,7 @@
 package tests;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
@@ -7,55 +9,36 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationTest extends TestBase{
 
-    public static List<ContactData> contactProvider() {
-        var result = new ArrayList<ContactData>();
-        for (var fistName : List.of("","first name")){
-            for (var lastName : List .of("","last name")){
-                for (var address : List.of("","address")){
-                    for (var email : List.of("","email")){
-                        for (var mobile : List.of("", "mobile")){
-                            result.add(new ContactData(" ", fistName, lastName, address, email,mobile, " "));
-                        }
-                    }
-
-                }
-            }
-        }
-        for (int i = 0; i < 5; i++){
-            result.add(new ContactData(" ", CommonFunctions.randomString(i * 10), CommonFunctions.randomString(i * 10), CommonFunctions.randomString(i * 10), CommonFunctions.randomString(i * 10), CommonFunctions.randomString(i * 10), " "));
-        }
+    public static List<ContactData> contactProvider() throws IOException {
+        String json = Files.readString(Paths.get("contacts.json"));
+        ObjectMapper mapper = new ObjectMapper();
+        List<ContactData> result = mapper.readValue(json, new TypeReference<>() {});
         return result;
     }
 
     @ParameterizedTest
     @MethodSource("contactProvider")
-    public void CanCreateMultipleContact(ContactData contact) {
-        var oldContacts = app.contact().getContactList();
+    public void canCreateContact(ContactData contact) {
+        List<ContactData> oldContacts = app.contact().getContactList();
         app.contact().createContact(contact);
-        var newContact = app.contact().getContactList();
-        Comparator<ContactData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        newContact.sort(compareById);
-        var expectedList = new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContact.get(newContact.size() - 1).id()).withFirstName("").withLastName(""));
-        expectedList.sort(compareById);
-        Assertions.assertEquals(newContact, expectedList);
+        List<ContactData> newContacts = app.contact().getContactList();
+        Comparator<ContactData> compareById = Comparator.comparingInt(o -> Integer.parseInt(o.id()));
+        newContacts.sort(compareById);
+        List<ContactData> expectedContacts = new ArrayList<>(oldContacts);
+        String id = newContacts.get(newContacts.size() - 1).id();
+        expectedContacts.add(contact.withId(id));
+        expectedContacts.add(contact.withId(id).withPhoto(""));
+        expectedContacts.sort(compareById);
+        Assertions.assertEquals(expectedContacts, newContacts);
     }
-    @Test
-    public void canCreateContact() {
-        app.contact().createContact(new ContactData(" ",
-                "first name",
-                "last name",
-                "address",
-                "email",
-                "phone",
-                "src\\test\\resources\\images\\avatar.jpg"));
-    }
+
 }

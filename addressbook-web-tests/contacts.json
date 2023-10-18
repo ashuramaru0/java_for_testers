@@ -1,0 +1,25 @@
+[ {
+  "id" : "",
+  "firstName" : "",
+  "lastName" : "",
+  "address" : "",
+  "email" : "",
+  "phone" : "",
+  "photo" : "src/test/resources/images/potter.jpg"
+}, {
+  "id" : "",
+  "firstName" : "cgkxu",
+  "lastName" : "ivhtf",
+  "address" : "nazki",
+  "email" : "ggscq",
+  "phone" : "jnvoi",
+  "photo" : "src/test/resources/images/white.jpg"
+}, {
+  "id" : "",
+  "firstName" : "yaudamucij",
+  "lastName" : "myjzredzlv",
+  "address" : "wrrrzrkplo",
+  "email" : "qewkjwajfc",
+  "phone" : "nxklpqwgcu",
+  "photo" : "src/test/resources/images/bateman.jpg"
+} ]
