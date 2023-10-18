@@ -8,8 +8,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -24,6 +29,17 @@ public class GroupCreationTest extends TestBase{
 //        }
 //      }
 //    }
+    var json = "";
+    try (var reader = new FileReader("groups.json");
+      var breader = new BufferedReader(reader)
+    ){
+      var line = breader.readLine();
+      while(line != null){
+        json = json + line;
+        line = breader.readLine();
+      }
+    }
+    //var json = Files.readString(Paths.get("groups.json"));
     ObjectMapper mapper = new ObjectMapper();
     var value = mapper.readValue(new File("groups.json"),  new TypeReference<List<GroupData>>(){});
     result.addAll(value);
@@ -42,7 +58,6 @@ public class GroupCreationTest extends TestBase{
   public void CanCreateMultipleGroup(GroupData group) {
     var oldGroups = app.groups().getList();
     app.groups().createGroup(group);
-    int newGroupCount = app.groups().getCount();
     var newGroups = app.groups().getList();
     Comparator<GroupData> compareById = (o1, o2) -> {
       return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
@@ -51,7 +66,7 @@ public class GroupCreationTest extends TestBase{
     var expectedList = new ArrayList<>(oldGroups);
     expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
     expectedList.sort(compareById);
-    Assertions.assertEquals(newGroups, expectedList);
+    Assertions.assertEquals(newGroups,expectedList);
   }
 
   @ParameterizedTest
