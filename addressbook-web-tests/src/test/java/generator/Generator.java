@@ -56,12 +56,12 @@ public class Generator {
     private Object generateContacts() {
         var result = new ArrayList<ContactData>();
         for (int i = 0; i < 5; i++) {
-            result.add(new ContactData(" ", CommonFunctions.randomString(i * 10),
+            result.add(new ContactData("", CommonFunctions.randomString(i * 10),
                     CommonFunctions.randomString(i * 10),
                     CommonFunctions.randomString(i * 10),
                     CommonFunctions.randomString(i * 10),
                     CommonFunctions.randomString(i * 10),
-                    " "));
+                    ""));
         }
         return result;
     }
@@ -86,10 +86,10 @@ public class Generator {
             try (var writer = new FileWriter(output)){
                 writer.write(json);
             }
-        } if ("yaml".equals(format)){
+        } else if ("yaml".equals(format)){
             var mapper = new YAMLMapper();
             mapper.writeValue(new File(output), data);
-        } if ("xml".equals(format)){
+        } else if ("xml".equals(format)){
             var mapper = new XmlMapper();
             mapper.writeValue(new File(output), data);
         }
