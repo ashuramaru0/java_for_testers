@@ -18,6 +18,8 @@ public class ApplicationManager {
 
     private JdbcHelper jdbc;
 
+    private HibernateHelper hmb;
+
     private Properties properties;
 
     public void init(String browser, Properties properties) {
@@ -49,6 +51,13 @@ public class ApplicationManager {
             jdbc = new JdbcHelper(this);
         }
         return jdbc;
+    }
+
+    public HibernateHelper hmb(){
+        if (hmb == null){
+            hmb = new HibernateHelper(this);
+        }
+        return hmb;
     }
 
     public GroupHelper groups(){
