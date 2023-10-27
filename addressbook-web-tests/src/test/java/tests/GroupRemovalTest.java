@@ -11,14 +11,14 @@ import java.util.Random;
 public class GroupRemovalTest extends TestBase{
     @Test
     public void canRemoveGroup() {
-        if (app.groups().getCount() == 0){
-            app.groups().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        if (app.hmb().getGroupCount() == 0){
+            app.hmb().createGroup(new GroupData("", "group name", "group header", "group footer"));
         };
-        var oldGroups = app.groups().getList();
+        var oldGroups = app.hmb().getGroupList();
         var rnd = new Random();
         var index = rnd.nextInt(oldGroups.size());
         app.groups().removeGroup(oldGroups.get(index));
-        var newGroups = app.groups().getList();
+        var newGroups = app.hmb().getGroupList();
         var expectedList = new ArrayList<>(oldGroups);
         expectedList.remove(index);
         Assertions.assertEquals(newGroups, expectedList);
@@ -26,11 +26,11 @@ public class GroupRemovalTest extends TestBase{
 
     @Test
     void canRemoveAllGroupsAtOnce(){
-        if (app.groups().getCount() == 0){
-            app.groups().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        if (app.hmb().getGroupCount() == 0){
+            app.hmb().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
         app.groups().removeAllGroups();
-        Assertions.assertEquals(0,app.groups().getCount());
+        Assertions.assertEquals(0,app.hmb().getGroupCount());
     }
 
 }
