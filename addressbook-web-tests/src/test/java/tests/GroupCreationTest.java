@@ -54,10 +54,7 @@ public class GroupCreationTest extends TestBase{
   }
 
   public static List<GroupData> singleRandomGroup()  {
-    return List.of(new GroupData()
-            .withName(CommonFunctions.randomString(10))
-            .withHeader(CommonFunctions.randomString(20))
-            .withFooter(CommonFunctions.randomString(30)));
+    return new ArrayList<>(List.of(CommonFunctions.randomGroup()));
   }
   @ParameterizedTest
   @MethodSource("singleRandomGroup")

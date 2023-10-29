@@ -1,5 +1,6 @@
 package tests;
 
+import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ public class GroupRemovalTest extends TestBase{
     @Test
     public void canRemoveGroup() {
         if (app.hmb().getGroupCount() == 0){
-            app.hmb().createGroup(new GroupData("", "group name", "group header", "group footer"));
+            app.hmb().createGroup(CommonFunctions.randomGroup());
         };
         var oldGroups = app.hmb().getGroupList();
         var rnd = new Random();
@@ -27,7 +28,7 @@ public class GroupRemovalTest extends TestBase{
     @Test
     void canRemoveAllGroupsAtOnce(){
         if (app.hmb().getGroupCount() == 0){
-            app.hmb().createGroup(new GroupData("", "group name", "group header", "group footer"));
+            app.hmb().createGroup(CommonFunctions.randomGroup());
         }
         app.groups().removeAllGroups();
         Assertions.assertEquals(0,app.hmb().getGroupCount());

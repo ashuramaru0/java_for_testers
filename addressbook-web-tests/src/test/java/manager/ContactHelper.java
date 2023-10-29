@@ -3,6 +3,7 @@ package manager;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +14,16 @@ public class ContactHelper extends HelperBase{
     }
 
     public void createContact(ContactData contact) {
-        openContactPage();
         initContactCreation();
         fillContactForm(contact);
+        submitContactCreation();
+        returnToContactsPage();
+    }
+
+    public void createContact(ContactData contact, GroupData group) {
+        initContactCreation();
+        fillContactForm(contact);
+        selectGroup(group);
         submitContactCreation();
         returnToContactsPage();
     }
@@ -37,6 +45,10 @@ public class ContactHelper extends HelperBase{
         returnToContactsPage();
     }
 
+
+    private void selectGroup(GroupData group) {
+        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
+    }
     private void submitContactModification() {
         click(By.name("update"));
     }
@@ -45,7 +57,39 @@ public class ContactHelper extends HelperBase{
         click(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.id())));;
     }
 
+    public void addToGroup(ContactData contact, GroupData group) {
+        openContactPage();
+        selectContact(contact);
+        selectGroupAddTo(group);
+        addContactToGroup();
+        returnToHomePageAfterAddingOrRemovingGroup(group);
+    }
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        openContactPage();
+        showContactsInGroup(group);
+        selectContact(contact);
+        removeFromGroup();
+        returnToHomePageAfterAddingOrRemovingGroup(group);
+    }
 
+    private void removeFromGroup() {
+        click(By.name("remove"));
+    }
+
+    private void showContactsInGroup(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
+
+    private void addContactToGroup() {
+        click(By.name("add"));
+    }
+    private void returnToHomePageAfterAddingOrRemovingGroup(GroupData group) {
+        click(By.linkText(String.format("group page \"%s\"", group.name())));
+    }
+
+    private void selectGroupAddTo(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
     private void returnToContactsPage() {
         click(By.linkText("home"));
     }
@@ -113,4 +157,9 @@ public class ContactHelper extends HelperBase{
         }
         return contact;
     }
+
+    public void refreshPage() {
+        click(By.linkText("home"));
+    }
+
 }

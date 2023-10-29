@@ -1,5 +1,6 @@
 package tests;
 
+import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,12 @@ public class GroupModificationTest extends TestBase{
     @Test
     void canModifyGroup(){
         if (app.hmb().getGroupCount() == 0){
-            app.hmb().createGroup(new GroupData("", "group name", "group header", "group footer"));
+            app.hmb().createGroup(CommonFunctions.randomGroup());
         };
         var oldGroups = app.hmb().getGroupList();
         var rnd = new Random();
         var index = rnd.nextInt(oldGroups.size());
-        var testData = new GroupData().withName("modifed name");
+        var testData = CommonFunctions.randomGroup();
         app.groups().modifyGroup(oldGroups.get(index), testData);
         var newGroups = app.hmb().getGroupList();
         var expectedList = new ArrayList<>(oldGroups);

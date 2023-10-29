@@ -1,12 +1,11 @@
 package manager.hbm;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
-    @Entity
+import java.util.List;
+
+@Entity
     @Table(name = "addressbook")
     public class ContactRecord {
         @Id
@@ -53,4 +52,9 @@ import java.util.Date;
             this.email = email;
             this.phone = phone;
         }
+        @ManyToMany
+        @JoinTable(name = "address_in_groups",
+                joinColumns = @JoinColumn(name = "id"),
+                inverseJoinColumns = @JoinColumn(name = "group_id"))
+        public List<GroupRecord> groups;
 }
