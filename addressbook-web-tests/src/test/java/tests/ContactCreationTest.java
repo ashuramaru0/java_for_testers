@@ -57,4 +57,45 @@ public class ContactCreationTest extends TestBase{
         expectedRelated.sort(compareById);
         Assertions.assertEquals(expectedRelated, newRelated);
     }
+    @Test
+    public void canAddContactInGroup() {
+        if (app.hmb().getGroupCount() == 0) {
+            app.hmb().createGroup(CommonFunctions.randomGroup());
+        }
+        if (app.hmb().getContactCount() == 0) {
+            app.hmb().createContact(new ContactData().withFirstName(CommonFunctions.randomString(10)));
+        }
+
+        List<GroupData> groups = app.hmb().getGroupList();
+        List<ContactData> contacts = app.hmb().getContactList();
+
+        GroupData groupToAdd = groups.get(0);
+        ContactData contactToAdd = null;
+
+        for (GroupData group : groups) {
+            List<ContactData> contactsInGroup = app.hmb().getContactsInGroup(group);
+            if (contactsInGroup.size() < contacts.size()) {
+                contacts.removeAll(contactsInGroup);
+                contactToAdd = contacts.get(0);
+                groupToAdd = group;
+                break;
+            }
+        }
+        if (contactToAdd == null) {
+            app.hmb().createContact(new ContactData().withFirstName(CommonFunctions.randomString(10)));
+            List<ContactData> newContacts = app.hmb().getContactList();
+            newContacts.removeAll(contacts);
+            contactToAdd = newContacts.get(0);
+        }
+        List<ContactData> oldRelated = app.hmb().getContactsInGroup(groupToAdd);
+        app.contact().addToGroup(contactToAdd, groupToAdd);
+        List<ContactData> newRelated = app.hmb().getContactsInGroup(groupToAdd);
+        Comparator<ContactData> compareById = Comparator.comparingInt(o -> Integer.parseInt(o.id()));
+        newRelated.sort(compareById);
+        List<ContactData> expectedRelated = new ArrayList<>(oldRelated);
+        String id = newRelated.get(newRelated.size() - 1).id();
+        expectedRelated.add(contactToAdd.withId(id).withPhoto(""));
+        expectedRelated.sort(compareById);
+        Assertions.assertEquals(expectedRelated, newRelated);
+    }
 }
