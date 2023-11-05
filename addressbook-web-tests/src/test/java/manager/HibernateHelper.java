@@ -18,11 +18,9 @@ public class HibernateHelper extends HelperBase{
         super(manager);
         SessionFactory sessionFactory =
                 new Configuration()
-//                        .addAnnotatedClass(Book.class)
                        .addAnnotatedClass(GroupRecord.class)
-                        // PostgreSQL
+                        .addAnnotatedClass(ContactRecord.class)
                         .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook?zeroDateTimeBehavior=convertToNull")
-                        // Credentials
                         .setProperty(AvailableSettings.JAKARTA_JDBC_USER, "root")
                         .setProperty(AvailableSettings.JAKARTA_JDBC_PASSWORD, "")
                         .buildSessionFactory();
