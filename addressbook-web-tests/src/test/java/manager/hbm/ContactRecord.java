@@ -15,10 +15,12 @@ import java.util.List;
         @Column(name = "lastname")
         public String lastName;
         public String address;
+        public String address2;
         public String email;
+        public String email2;
+        public String email3;
         @Column(name = "home")
         public String home;
-
         public String mobile;
         public String work ;
         @Column(name = "phone2")
