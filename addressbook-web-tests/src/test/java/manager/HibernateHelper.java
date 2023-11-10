@@ -10,10 +10,11 @@ import manager.hbm.ContactRecord;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HibernateHelper extends HelperBase{
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
     public HibernateHelper(ApplicationManager manager){
         super(manager);
         sessionFactory =
@@ -27,11 +28,7 @@ public class HibernateHelper extends HelperBase{
     }
 
     static List<GroupData> converList(List<GroupRecord> records){
-        List<GroupData> result = new ArrayList<>();
-        for (var record : records){
-            result.add(convert(record));
-        }
-        return result;
+        return records.stream().map(HibernateHelper::convert).collect(Collectors.toList());
     }
 
     private static GroupData convert(GroupRecord record) {
@@ -73,11 +70,7 @@ public class HibernateHelper extends HelperBase{
     }
 
     static List<GroupData> convertGroupList(List<GroupRecord> records) {
-        List<GroupData> result = new ArrayList<>();
-        for (GroupRecord record : records) {
-            result.add(convert(record));
-        }
-        return result;
+        return records.stream().map(HibernateHelper::convert).collect(Collectors.toList());
     }
     static List<ContactData> convertContactList(List<ContactRecord> records) {
         List<ContactData> result = new ArrayList<>();
@@ -92,8 +85,11 @@ public class HibernateHelper extends HelperBase{
                 .withFirstName(record.firstName)
                 .withLastName(record.lastName)
                 .withAddress(record.address)
-                .withPhone(record.phone)
-                .withEmail(record.email);
+                .withEmail(record.email)
+                .withHomePhone(record.home)
+                .withMobilePhone(record.mobile)
+                .withWorkPhone(record.work)
+                .withSecondaryPhone(record.secondary);
     }
     public long getContactCount() {
         return sessionFactory.fromSession(session -> {
@@ -111,7 +107,7 @@ public class HibernateHelper extends HelperBase{
                 data.lastName(),
                 data.address(),
                 data.email(),
-                data.phone()
+                data.home()
         );
 
     }

@@ -63,9 +63,11 @@ public class Generator {
 
     private Object generateContacts() {
         return generateData(() -> new ContactData()
-                .withFirstName(CommonFunctions.randomString( 10))
-                .withAddress(CommonFunctions.randomString(10))
-                .withEmail(CommonFunctions.randomString(10)));
+                .withFirstName(CommonFunctions.randomString( 5))
+                .withLastName(CommonFunctions.randomString(5))
+                .withAddress(CommonFunctions.randomString(5))
+                .withEmail(CommonFunctions.randomString(5))
+                .withHomePhone(CommonFunctions.randomString(5)));
     }
 
     private Object generateGroups() {

@@ -17,40 +17,22 @@ import java.util.List;
         public String address;
         public String email;
         @Column(name = "home")
-        public String phone;
+        public String home;
 
-        public String middlename = "";
-        public String nickname = "";
-        public String company = "";
-        public String title = "";
-        public String mobile = "";
-        public String work = "";
-        public String fax = "";
-        public String email2 = "";
-        public String email3 = "";
-        public String im = "";
-        public String im2 = "";
-        public String im3 = "";
-        public String homepage = "";
-        public int bday = 0;
-        public String bmonth = "";
-        public String byear = "";
-        public int aday = 0;
-        public String amonth = "";
-        public String ayear = "";
-        public String address2 = "";
-        public String phone2 = "";
-        public String notes = "";
+        public String mobile;
+        public String work ;
+        @Column(name = "phone2")
+        public String secondary;
         public ContactRecord() {
         }
 
-        public ContactRecord(int id, String firstName, String lastName, String address, String email, String phone) {
+        public ContactRecord(int id, String firstName, String lastName, String address, String email, String home) {
             this.id = id;
             this.firstName = firstName;
             this.lastName = lastName;
             this.address = address;
             this.email = email;
-            this.phone = phone;
+            this.home = home;
         }
         @ManyToMany
         @JoinTable(name = "address_in_groups",

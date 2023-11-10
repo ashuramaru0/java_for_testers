@@ -26,7 +26,7 @@ public class CommonFunctions {
                 .withLastName(randomString(random.nextInt(25)))
                 .withAddress(randomString(random.nextInt(25)))
                 .withEmail(randomString(random.nextInt(25)))
-                .withPhone(randomString(random.nextInt(25)));
+                .withHomePhone(randomString(random.nextInt(25)));
     }
 
     public static GroupData randomGroup() {
