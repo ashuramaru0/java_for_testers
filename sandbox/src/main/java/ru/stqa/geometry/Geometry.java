@@ -3,14 +3,17 @@ package ru.stqa.geometry;
 import ru.stqa.geometry.figures.Rectangle;
 import ru.stqa.geometry.figures.Square;
 
+import java.util.List;
+import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
 public class Geometry {
     public static void main(String[] args) {
-        Square.printSquareArea(new Square(7.));
-        Square.printSquareArea(new Square(5.));
-        Square.printSquareArea(new Square(3.));
-
-        Rectangle.printRectangleArea(3.0, 5.0);
-        Rectangle.printRectangleArea(7., 9.);
+        Supplier<Square> randomSquare = () -> new Square(new Random().nextDouble(100.));
+        var squares = Stream.generate(randomSquare).limit(5);
+        squares.peek(Square::printSquareArea).forEach(Square::printSquarePerimter);
     }
 
 }

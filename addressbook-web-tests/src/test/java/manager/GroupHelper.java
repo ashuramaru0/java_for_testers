@@ -3,6 +3,7 @@ package manager;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,10 +91,9 @@ public class GroupHelper extends HelperBase{
     }
 
     private void selectAllGroups() {
-        var checkboxes = manager.driver.findElements(By.name("selected[]"));
-        for (var checkbox : checkboxes) {
-            checkbox.click();
-        }
+        manager.driver
+                .findElements(By.name("selected[]"))
+                .forEach(WebElement::click);
     }
 
     public List<GroupData> getList() {

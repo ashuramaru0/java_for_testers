@@ -16,7 +16,7 @@ public class HibernateHelper extends HelperBase{
     private SessionFactory sessionFactory;
     public HibernateHelper(ApplicationManager manager){
         super(manager);
-        SessionFactory sessionFactory =
+        sessionFactory =
                 new Configuration()
                        .addAnnotatedClass(GroupRecord.class)
                         .addAnnotatedClass(ContactRecord.class)

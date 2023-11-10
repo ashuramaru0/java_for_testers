@@ -19,17 +19,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class GroupCreationTest extends TestBase{
   public static List<GroupData> groupProvider() throws IOException {
     var result = new ArrayList<GroupData>();
-//    for (var name : List.of("","group name")){
-//      for (var header : List .of("","group header")){
-//        for (var footer : List.of("","group footer")){
-//          result.add(new GroupData().withName(name).withHeader(header).withFooter(footer));
-//        }
-//      }
-//    }
     var json = "";
     try (var reader = new FileReader("groups.json");
       var breader = new BufferedReader(reader)
@@ -40,7 +35,6 @@ public class GroupCreationTest extends TestBase{
         line = breader.readLine();
       }
     }
-    //var json = Files.readString(Paths.get("groups.json"));
     ObjectMapper mapper = new XmlMapper();
     var value = mapper.readValue(new File("groups.xml"),  new TypeReference<List<GroupData>>(){});
     result.addAll(value);
@@ -53,8 +47,12 @@ public class GroupCreationTest extends TestBase{
     return result;
   }
 
-  public static List<GroupData> singleRandomGroup()  {
-    return new ArrayList<>(List.of(CommonFunctions.randomGroup()));
+  public static Stream<GroupData> singleRandomGroup()  {
+    Supplier<GroupData> randomGroup = () -> new GroupData()
+            .withName(CommonFunctions.randomString(10))
+            .withHeader(CommonFunctions.randomString(10))
+            .withFooter(CommonFunctions.randomString(30));
+    return Stream.generate(randomGroup).limit(3);
   }
   @ParameterizedTest
   @MethodSource("singleRandomGroup")
