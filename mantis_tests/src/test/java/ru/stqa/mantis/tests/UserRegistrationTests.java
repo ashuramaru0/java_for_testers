@@ -1,6 +1,8 @@
 package ru.stqa.mantis.tests;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.mantis.common.CommonFunctions;
 
 import java.time.Duration;
@@ -11,7 +13,7 @@ public class UserRegistrationTests extends TestBase{
     void canRegisterUser() {
         var username = String.format(CommonFunctions.randomString(8));
         var email = String.format("%s@localhost", username);
-        app.jamesCli().addUser(email, "password");
+        app.jamesApi().addUser(email, "password");
         app.session().signup(username, email);
         var messages = app.mail().receive(email, "password", Duration.ofSeconds(10));
         var text = messages.get(0).content();
