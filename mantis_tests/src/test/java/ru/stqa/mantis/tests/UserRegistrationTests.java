@@ -1,15 +1,20 @@
 package ru.stqa.mantis.tests;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.DeveloperMailUser;
+
 import java.time.Duration;
-import java.util.regex.Pattern;
-public class UserRegistrationTests extends TestBase{
+
+
+public class UserRegistrationTests extends TestBase {
+
     DeveloperMailUser user;
+
     @Test
-    void canRegisterUser(){
+    void canRegisterUser() throws InterruptedException {
         var password = "password";
         user = app.developerMail().addUser();
         var email = String.format("%s@developermail.com", user.name());
@@ -24,3 +29,9 @@ public class UserRegistrationTests extends TestBase{
         app.http().login(user.name(), password);
         Assertions.assertTrue(app.http().isLoggedIn());
     }
+
+    @AfterEach
+    void deleteMailUser() {
+        app.developerMail().deleteUser(user);
+    }
+}

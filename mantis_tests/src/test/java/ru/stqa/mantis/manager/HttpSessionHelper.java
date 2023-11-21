@@ -5,9 +5,10 @@ import okhttp3.*;
 import java.io.IOException;
 import java.net.CookieManager;
 
-public class HttpSessionHelper extends HelperBase{
+public class HttpSessionHelper extends HelperBase {
 
     OkHttpClient client;
+
     public HttpSessionHelper(ApplicationManager manager) {
         super(manager);
         client = new OkHttpClient.Builder().cookieJar(new JavaNetCookieJar(new CookieManager())).build();
@@ -19,7 +20,7 @@ public class HttpSessionHelper extends HelperBase{
                 .add("password", password)
                 .build();
         Request request = new Request.Builder()
-                .url(String.format("%s/login.php",manager.property("web.baseUrl")))
+                .url(String.format("%s/login.php", manager.property("web.baseUrl")))
                 .post(formBody)
                 .build();
 

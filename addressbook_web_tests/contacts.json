@@ -1,0 +1,43 @@
+[ {
+  "id" : "",
+  "firstname" : "test-",
+  "lastname" : "test-",
+  "photo" : "src/test/resources/images/avatar.png",
+  "home" : "",
+  "mobile" : "",
+  "work" : "",
+  "secondary" : "",
+  "address" : "",
+  "address2" : "",
+  "email" : "",
+  "email2" : "",
+  "email3" : ""
+}, {
+  "id" : "",
+  "firstname" : "test-sjitbffdjy",
+  "lastname" : "test-dpvdiwdikk",
+  "photo" : "src/test/resources/images/avatar.png",
+  "home" : "",
+  "mobile" : "",
+  "work" : "",
+  "secondary" : "",
+  "address" : "",
+  "address2" : "",
+  "email" : "",
+  "email2" : "",
+  "email3" : ""
+}, {
+  "id" : "",
+  "firstname" : "test-bthfakqaguokjbnyqkoo",
+  "lastname" : "test-mqblxqincpgcijrgngcq",
+  "photo" : "src/test/resources/images/avatar.png",
+  "home" : "",
+  "mobile" : "",
+  "work" : "",
+  "secondary" : "",
+  "address" : "",
+  "address2" : "",
+  "email" : "",
+  "email2" : "",
+  "email3" : ""
+} ]

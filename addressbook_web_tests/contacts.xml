@@ -1,0 +1,20 @@
+<ArrayList>
+    <item>
+        <id></id>
+        <firstname>test-</firstname>
+        <lastname>test-</lastname>
+        <photo>src/test/resources/images/avatar.png</photo>
+    </item>
+    <item>
+        <id></id>
+        <firstname>test-mcnmwvbylu</firstname>
+        <lastname>test-nldtxllvqu</lastname>
+        <photo>src/test/resources/images/avatar.png</photo>
+    </item>
+    <item>
+        <id></id>
+        <firstname>test-xksxzyzcavmpnyhyfnjw</firstname>
+        <lastname>test-xkjpqhfeqpfqlybfmzqu</lastname>
+        <photo>src/test/resources/images/avatar.png</photo>
+    </item>
+</ArrayList>

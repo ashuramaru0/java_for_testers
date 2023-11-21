@@ -12,11 +12,12 @@ public class CommonFunctions {
         Supplier<Integer> randomNumbers = () -> rnd.nextInt(26);
         var result = Stream.generate(randomNumbers)
                 .limit(n)
-                .map(i -> 'a'+i)
+                .map(i -> 'a' + i)
                 .map(Character::toString)
                 .collect(Collectors.joining());
         return result;
     }
+
     public static String extractUrl (String message) {
         var pattern = Pattern.compile("http://\\S*");
         var matcher = pattern.matcher(message);

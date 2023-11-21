@@ -1,6 +1,5 @@
 package ru.stqa.mantis.manager;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeUtility;
@@ -60,6 +59,7 @@ public class DeveloperMailHelper extends HelperBase{
             throw new RuntimeException(e);
         }
     }
+
     public String receive(DeveloperMailUser user, Duration duration) {
         var start = System.currentTimeMillis();
         while (System.currentTimeMillis() < start + duration.toMillis()) {
@@ -104,6 +104,5 @@ public class DeveloperMailHelper extends HelperBase{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
