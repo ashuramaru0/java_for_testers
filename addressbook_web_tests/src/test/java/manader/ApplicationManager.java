@@ -6,9 +6,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.GeckoDriverService;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 public class ApplicationManager {
@@ -21,17 +26,26 @@ public class ApplicationManager {
     private HibernateHelper hbm;
 
 
-    public void init(String browser, Properties properties) {
+    public void init(String browser, Properties properties) throws MalformedURLException {
         this.properties = properties;
         if (driver == null) {
+            var seleniumServer = properties.getProperty("seleniumServer");
             if ("chrome".equals(browser)) {
-                var service = ChromeDriverService.createDefaultService();
-                service.setExecutable("c:/windows/system32/chromedriver.exe");
-                driver = new ChromeDriver(service);
+                if (seleniumServer != null) {
+                    driver = new RemoteWebDriver(new URL(seleniumServer), new ChromeOptions());
+                } else {
+                    var service = ChromeDriverService.createDefaultService();
+                    service.setExecutable("c:/windows/system32/chromedriver1.exe");
+                    driver = new ChromeDriver(service);
+                }
             } else if ("firefox".equals(browser)) {
-                var service = GeckoDriverService.createDefaultService();
-                service.setExecutable("c:/windows/system32/geckodriver.exe");
-                driver = new FirefoxDriver(service);
+                if (seleniumServer != null) {
+                    driver = new RemoteWebDriver(new URL(seleniumServer), new FirefoxOptions());
+                } else {
+                    var service = GeckoDriverService.createDefaultService();
+                    service.setExecutable("c:/windows/system32/geckodriver.exe");
+                    driver = new FirefoxDriver(service);
+                }
             } else {
                 throw new IllegalArgumentException(String.format("Unknown browser %f", browser));
             }

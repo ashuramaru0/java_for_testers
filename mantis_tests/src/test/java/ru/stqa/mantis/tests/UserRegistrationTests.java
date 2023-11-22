@@ -14,12 +14,16 @@ public class UserRegistrationTests extends TestBase {
         var username = String.format(CommonFunctions.randomString(8));
         var email = String.format("%s@localhost", username);
         var password = "password";
+
         app.jamesApi().addUser(email, password);
         app.rest().createUser(new UserData(username, password, email));
+
         var sms = app.mail().receive(email, password, Duration.ofSeconds(60));
         var text = sms.get(0).content();
         var url = CommonFunctions.extractUrl(text);
+
         app.session().finishedRegistration(url, username, password);
+
         app.http().login(username, password);
         Assertions.assertTrue(app.http().isLoggedIn());
     }
